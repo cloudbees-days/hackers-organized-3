@@ -13,6 +13,7 @@ jobs:
         name: Run GHA
         kind: build
         with:
+          token: ${{ secrets.GH_TOKEN }}
           org-name: cloudbees-days
           repo-name: hackers-organized
           branch-name: main
