@@ -1,0 +1,20 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: My workflow
+on:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+jobs:
+  build:
+    steps:
+      - uses: ghactions-preconfigured-test
+        name: Run GHA
+        kind: build
+        with:
+          org-name: cloudbees-days
+          repo-name: hackers-organized
+          branch-name: main
+          workflow-name: Test and build
+          test-type: JUNIT
