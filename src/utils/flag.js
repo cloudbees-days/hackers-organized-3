@@ -2,7 +2,7 @@ import Rox from 'rox-browser'
 import { betaAccess, isLoggedIn, getCompany } from './users'
 
 export const configurationFetchedHandler = fetcherResults => {
-  console.log(fetcherResults)
+  // console.log(fetcherResults)
   if (fetcherResults.hasChanges && fetcherResults.fetcherStatus === 'APPLIED_FROM_NETWORK') {
     window.location.reload(false)
   }
@@ -10,9 +10,9 @@ export const configurationFetchedHandler = fetcherResults => {
 
 export const impressionHandler = (reporting) => {
   if (reporting.targeting) {
-    console.log('flag ' + reporting.name + ' value is ' + reporting.value)
+    // console.log('flag ' + reporting.name + ' value is ' + reporting.value)
   } else {
-    console.log('No experiment configured for flag ' + reporting.name + '. default value ' + reporting.value + ' was used')
+    // console.log('No experiment configured for flag ' + reporting.name + '. default value ' + reporting.value + ' was used')
   }
 }
 
