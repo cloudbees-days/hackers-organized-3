@@ -53,3 +53,15 @@ jobs:
         kind: scan
         with:
           language: LANGUAGE_JS
+  deploy:
+    environment: DOW Production
+    steps:
+      - uses: cloudbees-io/kubernetes-create-resource@v1
+        name: Deploy to cluster
+        kind: deploy
+        with:
+          file-path: deploy.yaml
+          namespace: hackers-organized-prod
+    needs:
+      - build
+      - scan
