@@ -18,3 +18,4 @@ jobs:
           branch-name: main
           workflow-name: Test and build
           test-type: JUNIT
+          test-result-location: junit.xml
