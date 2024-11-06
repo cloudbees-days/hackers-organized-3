@@ -42,9 +42,9 @@ jobs:
         with:
           destination: ${{ secrets.DOCKERHUB_USER }}/hackers-organized:${{ cloudbees.scm.sha }},${{ secrets.DOCKERHUB_USER }}/hackers-organized:latest
           tar-path: container-image.tar
-      - uses: calculi-corp/assets-plugin-chain-utils/upload-binary@v1
+      - id: upload-binary
         name: Upload binary from container build
-        id: upload-binary
+        uses: calculi-corp/assets-plugin-chain-utils/upload-binary@v1
         with:
           file-path: container-image.tar
           file-type: BINARY_CONTAINER
