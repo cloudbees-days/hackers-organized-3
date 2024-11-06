@@ -1,6 +1,13 @@
 import { render, fireEvent, screen } from "@testing-library/vue";
 import ListItem from "@/components/ListItem.vue";
 
-test("home page loads", async () => {
-  render(ListItem);
+describe("ListItem.vue", () => {
+  it("renders props.title when passed", () => {
+    const title = "Super popular article";
+    render(ListItem, {
+      props: { title },
+    });
+
+    screen.getByText(title);
+  });
 });
