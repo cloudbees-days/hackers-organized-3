@@ -1,14 +1,12 @@
-FROM node:lts-alpine
+FROM node:lts AS builder
 WORKDIR /app
-RUN npm install -g http-server
 COPY package*.json ./
-RUN apk add --no-cache --virtual .gyp \
-        py3-pip \
-        make \
-        g++ \
-    && npm ci \
-    && apk del .gyp
+RUN npm ci
 COPY . .
-EXPOSE 8080
-# Built in the crappiest way possible so we're still running in the node pod to get all the vulnerabilities
-CMD ["npx", "vue-cli-service", "serve"]
+
+RUN npm run build
+FROM nginx:stable-alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/node_modules /app/node_modules
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
