@@ -46,7 +46,7 @@ jobs:
         name: Upload binary from container build
         id: upload-binary
         with:
-          file-path: README.md
+          file-path: container-image.tar
           file-type: BINARY_CONTAINER
           debug: "true"
     needs: test
