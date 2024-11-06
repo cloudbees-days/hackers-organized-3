@@ -44,7 +44,6 @@ jobs:
           tar-path: container-image.tar
       - uses: calculi-corp/assets-plugin-chain-utils/upload-binary@v1
         name: Upload binary from container build
-        kind: build
         id: upload-binary
         with:
           file-path: container-image.tar
