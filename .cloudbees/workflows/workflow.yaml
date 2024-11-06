@@ -6,16 +6,11 @@ on:
     branches:
       - "**"
   workflow_dispatch:
-permissions:
-  scm-token-own: read
-  scm-token-org: read
-  id-token: write
 jobs:
   test:
     steps:
       - uses: cloudbees-io/ghactions-run-workflow@v2
         name: Run GHA Workflow
-        kind: test
         with:
           token: ${{ secrets.GH_TOKEN }}
           org-name: cloudbees-days
@@ -26,21 +21,19 @@ jobs:
           test-result-location: junit.xml
   build:
     steps:
-      - uses: cloudbees-io/checkout@v1
-        name: Get source code
-        kind: build
-      - uses: cloudbees-io/configure-oci-credentials@v1
+      - name: Get source code
+        uses: cloudbees-io/checkout@v1
+      - id: dockerconfig
         name: Configure container registry credentials
-        id: dockerconfig
+        uses: cloudbees-io/configure-oci-credentials@v1
         with:
           registry: https://index.docker.io/v1/
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: cloudbees-io/kaniko@v1
-        name: Build container image
-        kind: build
+      - name: Build container image
+        uses: cloudbees-io/kaniko@v1
         with:
-          destination: ${{ secrets.DOCKERHUB_USER }}/hackers-organized:${{ cloudbees.scm.sha }},${{ secrets.DOCKERHUB_USER }}/hackers-organized:latest
+          destination: ${{ secrets.DOCKERHUB_USER }}/hackers-organized:1.0.1,${{ secrets.DOCKERHUB_USER }}/hackers-organized:latest
           tar-path: container-image.tar
       - id: upload-binary
         name: Upload binary from container build
@@ -52,20 +45,7 @@ jobs:
     needs: test
   scan:
     steps:
-      - uses: cloudbees-io/sonarqube-bundled-sast-scan-code@v1
-        name: Scan with SonarQube
-        kind: scan
+      - name: Scan with SonarQube
+        uses: cloudbees-io/sonarqube-bundled-sast-scan-code@v1
         with:
           language: LANGUAGE_JS
-  deploy:
-    environment: DOW Production
-    steps:
-      - uses: cloudbees-io/kubernetes-create-resource@v1
-        name: Deploy to cluster
-        kind: deploy
-        with:
-          file-path: deploy.yaml
-          namespace: hackers-organized-prod
-    needs:
-      - build
-      - scan
