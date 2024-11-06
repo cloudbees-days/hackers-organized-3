@@ -60,12 +60,19 @@ jobs:
   deploy:
     environment: DOW Production
     steps:
-      - uses: cloudbees-io/kubernetes-create-resource@v1
+      - name: Checkout
+        uses: cloudbees-io/checkout@v1
+      - uses: cloudbees-days/setup-kubeconfig@v1
+        name: Set kubeconfig
+        with:
+          kubeconfig: ${{ secrets.kubeconfig }}
+      - uses: cloudbees-io/kustomize-deploy@v1
         name: Deploy to cluster
         kind: deploy
         with:
-          file-path: deploy.yaml
-          namespace: hackers-organized-prod
+          kustomization-base-dir: ${{ cloudbees.workspace }}/base
+          kustomization-overlays-dir: ${{ cloudbees.workspace }}/overlays/prod
+          environment-variables: '{"IMAGE_NAME":"nginx:latest","PORT":80}'
     needs:
       - build
       - scan
