@@ -40,7 +40,7 @@ jobs:
         name: Build container image
         kind: build
         with:
-          destination: ${{ secrets.DOCKERHUB_USER }}/hackers-organized:1.0.1,${{ secrets.DOCKERHUB_USER }}/hackers-organized:latest
+          destination: ${{ secrets.DOCKERHUB_USER }}/hackers-organized:latest
           tar-path: container-image.tar
       - uses: calculi-corp/assets-plugin-chain-utils/upload-binary@v1
         name: Upload binary from container build
