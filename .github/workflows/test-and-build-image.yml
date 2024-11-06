@@ -15,6 +15,15 @@ jobs:
       - run: npm ci
       - run: npm run test:unit
 
+      - name: Record test results to Launchable workspace
+        uses: launchableinc/record-build-and-test-results-action@v1.0.0
+        with:
+          report_path: junit.xml
+          test_runner: jest
+        if: always()
+        env:
+          LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN }}
+
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
