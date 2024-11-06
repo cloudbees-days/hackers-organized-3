@@ -37,4 +37,4 @@ Rox.setCustomBooleanProperty("isLoggedIn", isLoggedIn());
 Rox.setCustomStringProperty("company", getCompany());
 
 Rox.register("default", Flags);
-Rox.setup(process.env.VUE_APP_ROLLOUT_KEY, options);
+Rox.setup("a4fdee6a-4340-4d2f-7698-0dc1234bb458", options);
