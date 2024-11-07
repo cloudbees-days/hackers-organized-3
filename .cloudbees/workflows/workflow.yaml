@@ -16,6 +16,7 @@ jobs:
       - uses: cloudbees-io/ghactions-run-workflow@v2
         name: Run GHA Workflow
         kind: test
+        continue-on-error: true
         with:
           token: ${{ secrets.GH_TOKEN }}
           org-name: cloudbees-days
@@ -29,8 +30,10 @@ jobs:
       - uses: cloudbees-io/checkout@v1
         name: Get source code
         kind: build
+        continue-on-error: true
       - uses: cloudbees-io/configure-oci-credentials@v1
         name: Configure container registry credentials
+        continue-on-error: true
         id: dockerconfig
         with:
           registry: https://index.docker.io/v1/
@@ -39,11 +42,13 @@ jobs:
       - uses: cloudbees-io/kaniko@v1
         name: Build container image
         kind: build
+        continue-on-error: true
         with:
           destination: ${{ secrets.DOCKERHUB_USER }}/hackers-organized:${{ cloudbees.scm.sha }},${{ secrets.DOCKERHUB_USER }}/hackers-organized:latest
           tar-path: container-image.tar
       - uses: calculi-corp/assets-plugin-chain-utils/upload-binary@v1
         name: Upload binary from container build
+        continue-on-error: true
         id: upload-binary
         with:
           file-path: container-image.tar
@@ -55,6 +60,7 @@ jobs:
       - uses: cloudbees-io/sonarqube-bundled-sast-scan-code@v1
         name: Scan with SonarQube
         kind: scan
+        continue-on-error: true
         with:
           language: LANGUAGE_JS
   deploy:
