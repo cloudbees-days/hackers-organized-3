@@ -18,7 +18,7 @@ spec:
       containers:
         - name: hackers-organized
           image: ldonleycb/hackers-organized
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: ho-cm
