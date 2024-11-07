@@ -7,8 +7,7 @@ COPY . .
 RUN npm run build
 FROM nginx:stable-alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
-#COPY --from=builder /app/node_modules /app/node_modules
-EXPOSE 80
+COPY default.conf /etc/nginx/conf.d/default.conf
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
