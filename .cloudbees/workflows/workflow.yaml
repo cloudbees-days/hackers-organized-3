@@ -79,8 +79,7 @@ jobs:
     steps:
       - name: Checkout
         uses: cloudbees-io/checkout@v1
-      - name: Run unit tests
-        id: RunUnitTest
+      - name: Get code coverage
         kind: test
         uses: docker://node:lts
         run: |
