@@ -76,8 +76,8 @@ jobs:
         name: Deploy to cluster
         kind: deploy
         with:
-          kustomization-base-dir: ${{ cloudbees.workspace }}/base
-          kustomization-overlays-dir: ${{ cloudbees.workspace }}/overlays/prod
+          kustomization-base-dir: ${{ cloudbees.workspace }}/k8s/base
+          kustomization-overlays-dir: ${{ cloudbees.workspace }}/k8s/overlays/prod
           environment-variables: '{}'
     needs:
       - build
