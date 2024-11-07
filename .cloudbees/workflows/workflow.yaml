@@ -25,8 +25,12 @@ jobs:
           workflow-name: test-and-build-image
           test-type: JUnit
           test-result-location: junit.xml
+      - uses: cloudbees-io/checkout@v1
+        name: Get source code
+        continue-on-error: true
       - name: Run unit tests
         id: RunUnitTest
+        kind: test
         uses: docker://node:lts
         run: |
           npm run ci
