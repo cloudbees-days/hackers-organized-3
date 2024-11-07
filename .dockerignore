@@ -20,3 +20,6 @@ yarn-error.log*
 *.sln
 *.sw?
 junit.xml
+
+vulnerable-packages.txt
+vulnerable_modules/
