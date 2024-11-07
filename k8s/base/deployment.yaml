@@ -19,12 +19,9 @@ spec:
         - name: hackers-organized
           image: ldonleycb/hackers-organized
           imagePullPolicy: IfNotPresent
-          env:
-            - name: VUE_APP_FM_KEY
-              valueFrom:
-                - configMapKeyRef:
-                    name: ho-cm
-                    key: VUE_APP_FM_KEY
+          envFrom:
+            - configMapRef:
+                name: ho-cm
           ports:
             - containerPort: 80
               protocol: TCP
