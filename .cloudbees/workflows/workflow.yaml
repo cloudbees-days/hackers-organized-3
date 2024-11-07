@@ -89,7 +89,7 @@ jobs:
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
         continue-on-error: true
         with:
-          orgname: ${{ secrests.SNYK_ORGNAME }}
+          orgname: ${{ secrets.SNYK_ORGNAME }}
           token: ${{ secrets.SNYK_TOKEN }}
           language: "LANGUAGE_JS"
       - name: Fetch SonarQube Issues
