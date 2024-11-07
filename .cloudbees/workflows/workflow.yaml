@@ -25,6 +25,11 @@ jobs:
           workflow-name: test-and-build-image
           test-type: JUnit
           test-result-location: junit.xml
+      - name: Publish test results
+        uses: cloudbees-io/publish-test-results@v1
+        with:
+          test-type: JUnit
+          folder-name: .
   build-container-image:
     steps:
       - uses: cloudbees-io/checkout@v1
