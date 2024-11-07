@@ -33,7 +33,7 @@ jobs:
         kind: test
         uses: docker://node:lts
         run: |
-          npm run ci
+          npm ci
           npm run test:unit
       - name: Publish test results
         uses: cloudbees-io/publish-test-results@v1
