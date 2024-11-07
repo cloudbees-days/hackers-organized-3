@@ -25,11 +25,17 @@ jobs:
           workflow-name: test-and-build-image
           test-type: JUnit
           test-result-location: junit.xml
+      - name: Run unit tests
+        id: RunUnitTest
+        uses: docker://node:lts
+        run: |
+          npm run ci
+          npm run test:unit
       - name: Publish test results
         uses: cloudbees-io/publish-test-results@v1
         with:
           test-type: JUnit
-          folder-name: ${{ cloudbees.workspace }}/*.xml
+          folder-name: ${{ cloudbees.workspace }}/junit.xml
   build-container-image:
     steps:
       - uses: cloudbees-io/checkout@v1
