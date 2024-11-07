@@ -23,7 +23,7 @@ jobs:
           repo-name: hackers-organized
           branch-name: main
           workflow-name: test-and-build-image
-          test-type: JUNIT
+          test-type: JUnit
           test-result-location: junit.xml
   build-container-image:
     steps:
