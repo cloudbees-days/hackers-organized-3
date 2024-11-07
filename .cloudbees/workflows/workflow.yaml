@@ -79,6 +79,13 @@ jobs:
     steps:
       - name: Checkout
         uses: cloudbees-io/checkout@v1
+      - name: Run unit tests
+        id: RunUnitTest
+        kind: test
+        uses: docker://node:lts
+        run: |
+          npm ci
+          npm run test:coverage
       - name: Scan with GitHub Advanced Security
         uses: cloudbees-io/github-security-sast-scan-code@v1
         continue-on-error: true
@@ -91,7 +98,8 @@ jobs:
         continue-on-error: true
         with:
           language: LANGUAGE_JS
-          cover-file-name: ./package.json
+          cover-file-name: coverage/clover.xml
+          sonar-exclusion: tests/*
       - uses: cloudbees-io/snyk-sast-scan-code@v1
         name: Synk SAST
         kind: scan
