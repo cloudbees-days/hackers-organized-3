@@ -25,6 +25,10 @@ jobs:
           workflow-name: test-and-build-image
           test-type: JUnit
           test-result-location: junit.xml
+      - uses: docker://node:lts
+        run: |
+          ls
+          pwd
       - uses: cloudbees-io/checkout@v1
         name: Get source code
         continue-on-error: true
