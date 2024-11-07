@@ -31,10 +31,10 @@ jobs:
       - name: Run unit tests
         id: RunUnitTest
         kind: test
-        uses:
-          docker://node:lts run: |
-                                   npm ci
-                                   npm run test:unit
+        uses: docker://node:lts
+        run: |
+          npm ci
+          npm run test:unit
       - name: Publish test results
         uses: cloudbees-io/publish-test-results@v1
         with:
@@ -119,7 +119,7 @@ jobs:
           CRITICAL_COUNT=$(jq '[.issues[] | select(.severity=="CRITICAL")] | length' sonar-issues.json)
           MAJOR_COUNT=$(jq '[.issues[] | select(.severity=="MAJOR")] | length' sonar-issues.json)
           MINOR_COUNT=$(jq '[.issues[] | select(.severity=="MINOR")] | length' sonar-issues.json)
-
+          
           echo "BLOCKER_COUNT=${BLOCKER_COUNT}" >> $CLOUDBEES_OUTPUTS/BLOCKER_COUNT
           echo "CRITICAL_COUNT=${CRITICAL_COUNT}" >> $CLOUDBEES_OUTPUTS/CRITICAL_COUNT
           echo "MAJOR_COUNT=${MAJOR_COUNT}" >> $CLOUDBEES_OUTPUTS/MAJOR_COUNT
@@ -129,16 +129,16 @@ jobs:
         with:
           content: |
             ## SonarQube Analysis Results
-
+            
             | Severity And Issue Count |
             |------------------------|
-
+            
             |  ${{ steps.FetchSonarQubeIssues.outputs.BLOCKER_COUNT }} |
-
+            
             | ${{ steps.FetchSonarQubeIssues.outputs.CRITICAL_COUNT }} |
-
+            
             | ${{ steps.FetchSonarQubeIssues.outputs.MAJOR_COUNT }} |
-
+            
             |  ${{ steps.FetchSonarQubeIssues.outputs.MINOR_COUNT }} |
   deploy:
     environment: DOW Production
