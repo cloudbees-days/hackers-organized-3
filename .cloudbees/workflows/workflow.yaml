@@ -85,12 +85,6 @@ jobs:
         run: |
           npm ci
           npm run test:coverage
-      - name: Scan with GitHub Advanced Security
-        uses: cloudbees-io/github-security-sast-scan-code@v1
-        continue-on-error: true
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          language: LANGUAGE_JS
       - uses: cloudbees-io/sonarqube-bundled-sast-scan-code@v1
         name: Scan with SonarQube
         kind: scan
