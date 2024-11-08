@@ -131,15 +131,11 @@ jobs:
           content: |
             ## SonarQube Analysis Results
             
-            | Severity And Issue Count |
-            |------------------------|
-            
+            | Severity |  Count |
+            |----------- | ------------|
             |  ${{ steps.FetchSonarQubeIssues.outputs.BLOCKER_COUNT }} |
-            
             | ${{ steps.FetchSonarQubeIssues.outputs.CRITICAL_COUNT }} |
-            
             | ${{ steps.FetchSonarQubeIssues.outputs.MAJOR_COUNT }} |
-            
             |  ${{ steps.FetchSonarQubeIssues.outputs.MINOR_COUNT }} |
   deploy:
     environment: DOW Production
