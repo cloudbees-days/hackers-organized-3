@@ -4,9 +4,6 @@
 <!--      <v-alert type="error">-->
 <!--        ERROR!-->
 <!--      </v-alert>-->
-      <p>
-        <span class="score">{{ score }}</span>
-      </p>
     </div>
     <div class="media-content">
       <div class="content">
