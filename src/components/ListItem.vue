@@ -1,10 +1,5 @@
 <template>
   <article class="media box">
-    <div class="media-left score-box" v-if="show_score">
-<!--      <v-alert type="error">-->
-<!--        ERROR!-->
-<!--      </v-alert>-->
-    </div>
     <div class="media-content">
       <div class="content">
         <p>
